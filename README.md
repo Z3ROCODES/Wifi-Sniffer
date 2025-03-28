@@ -1,19 +1,25 @@
 
 # **Wi-Fi Network Sniffer**  
-_A Python-based Wi-Fi network sniffer to capture HTTP/HTTPS traffic and provide device insights on your local network._
+_A Python-based Wi-Fi network sniffer to capture HTTP/HTTPS traffic, detect devices, and provide insights into your local network._
 
 ![Wi-Fi Sniffer](https://img.shields.io/badge/Powered%20By-Python-brightgreen)
 
 ## **Features**
 
 - 🚨 **Device Detection**  
-  Capture ARP packets to display devices connected to your network along with their **IP** and **MAC** addresses.
-  
+  Capture ARP packets to display devices connected to your network along with their **IP** and **MAC** addresses and **vendor information**.
+
 - 🌐 **HTTP Request Capture**  
-  Display **HTTP request details** including request method (GET, POST), host, path, and **User-Agent**.
+  Capture and display **HTTP request details** including request method (GET, POST), host, path, and **User-Agent**.
 
 - 🔒 **HTTPS Response Capture**  
-  Capture **HTTPS responses** (status code & status line) — note that the content of HTTPS traffic remains encrypted.
+  Capture **HTTPS responses** (status code & status line) — note that the content of HTTPS traffic remains encrypted. The URL will be captured and saved in logs for analysis.
+
+- 📜 **Logging**  
+  All captured traffic (including HTTP requests, device connections, and errors) is logged to a **log file** for future reference.
+
+- 📦 **PCAP File Saving**  
+  Save the network packets in a **PCAP** file format for analysis using tools like **Wireshark**.
 
 ---
 
@@ -30,7 +36,7 @@ Before running this script, ensure the following:
 Install these libraries using `pip`:
 
 ```bash
-pip install scapy getmac colorama
+pip install scapy getmac colorama requests
 ```
 
 ---
@@ -53,7 +59,7 @@ pip install -r requirements.txt
 Or install individually:
 
 ```bash
-pip install scapy getmac colorama
+pip install scapy getmac colorama requests
 ```
 
 ---
@@ -68,7 +74,7 @@ pip install scapy getmac colorama
    ```
 
 2. **Output Example**  
-   The program will show connected devices along with their **IP** and **MAC** addresses and any captured HTTP/HTTPS traffic.
+   The program will show connected devices along with their **IP** and **MAC** addresses, any captured HTTP/HTTPS traffic, and vendor information.
 
    **Example Output:**
 
@@ -85,7 +91,7 @@ pip install scapy getmac colorama
    Starting to sniff packets...
    Press CTRL + C to stop.
 
-   Device connected: IP = 10.0.0.5, MAC = 00:23:45:67:89:AB
+   Device connected: IP = 10.0.0.5, MAC = 00:23:45:67:89:AB, Vendor = SomeVendor
    [HTTP Request] GET testphp.vulnweb.com/
    User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Safari/537.36 Edge/91.0.864.67
    [HTTPS Response] Status: 200 OK
@@ -93,6 +99,12 @@ pip install scapy getmac colorama
 
 3. **Stop Sniffing**  
    Press **CTRL + C** to stop the sniffer at any time.
+
+4. **Log Files**  
+   The script logs captured information to a file called `logs.txt`. You can review this file for detailed logs of the traffic and device connections.
+
+5. **PCAP File**  
+   The captured packets are saved in a **PCAP file** (`packets.pcap`) for analysis using tools like **Wireshark**.
 
 ---
 
@@ -131,5 +143,4 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 - **Scapy**: A powerful Python library for network packet manipulation and sniffing.
 - **Colorama**: For adding color and improving terminal output.
 - **getmac**: For obtaining MAC addresses.
-
----
+- **requests**: For querying external services like MAC vendor lookup.
